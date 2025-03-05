@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "metamorproxies"
+version = "0.1.0"
+description = ""
+authors = ["reinanbr <perseu912@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+kitano = "^0.0.8.5"
+webdriver-manager = "^4.0.2"
+selenium = "^4.29.0"
+setuptools = "^75.8.2"
+pytest = "^8.3.5"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
