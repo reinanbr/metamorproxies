@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/reinanbr/logos/refs/heads/main/metamorproxies.jpg?token=GHSAT0AAAAAAC7ZO2HDGG524ZEG4KTRLJWWZ6HTTDQ" alt="MetamorProxies Logo" width="450"/>
+  <img src="/img/metamorproxies.jpg" alt="MetamorProxies Logo" width="450"/>
 </p>
 <h1 align="center">MetamorProxies</h1>
 <p align="center">
@@ -19,15 +19,15 @@
 
 ---
 
-MetamorProxies is a Python library that provides a collection of tools to manipulate, manage, and use proxies in web scraping, automation, or other network tasks. This library aims to simplify the handling of proxy servers, allowing users to seamlessly rotate, filter, and configure proxies in a clean, efficient manner.
+MetamorProxies is a Python library that provides tools for web automation and proxy management. This library includes functionality for taking website screenshots and testing SOCKS5 proxies, making it useful for web scraping, automation, and network testing tasks.
 
 ## Features
 
-* **Proxy Rotation** : Easily rotate proxies to avoid being blocked by target servers.
-* **Custom Proxy Configuration** : Configure proxies to fit your unique needs.
-* **Integration** : Designed to integrate with common libraries like `requests` for seamless proxy management.
-* **Flexible API** : Simple, intuitive API for proxy manipulation and usage.
-* **Extensible** : Easy to extend for your own use cases.
+* **Website Screenshots** : Capture screenshots of websites using headless Chrome browser
+* **Proxy Testing** : Test SOCKS5 proxies for functionality and reliability
+* **Proxy Management** : Fetch and validate proxy lists from external sources
+* **Headless Automation** : Run browser automation without GUI
+* **Flexible Configuration** : Customizable screenshot settings and proxy testing parameters
 
 ## Installation
 
@@ -58,49 +58,61 @@ python setup.py install
 
 ## Usage
 
-Here’s a simple example of how to use MetamorProxies with `requests` to rotate proxies.
+### Taking Website Screenshots
+
+The main functionality of MetamorProxies is capturing screenshots of websites using the `PrintWeb` class:
 
 ```python
-import requests
-from metamorproxies import ProxyManager
+from metamorproxies.soldier import PrintWeb
 
-# Initialize ProxyManager
-proxy_manager = ProxyManager()
+# Initialize PrintWeb with URL and output path
+url = "https://www.example.com"
+output_path = "screenshot.png"
+printer = PrintWeb(url, output_path)
 
-# Get a random proxy from your list
-proxy = proxy_manager.get_proxy()
-
-# Use the proxy with requests
-response = requests.get("https://example.com", proxies={"http": proxy, "https": proxy})
-
-print(response.text)
+# Take the screenshot
+printer.take_screenshot()
+print(f"Screenshot saved as {output_path}")
 ```
 
-### Advanced Usage
+### Advanced Screenshot Usage
 
-#### Configuring Proxies
-
-You can configure your proxy manager with a list of proxies or use different strategies for proxy rotation. Here's an example:
+You can also change the output path after initialization:
 
 ```python
-from metamorproxies import ProxyManager
+from metamorproxies.soldier import PrintWeb
 
-proxy_list = [
-    "http://user:pass@proxy1.com:8080",
-    "http://user:pass@proxy2.com:8080",
-    "http://user:pass@proxy3.com:8080"
-]
+# Initialize with default output path
+printer = PrintWeb("https://www.example.com")
 
-proxy_manager = ProxyManager(proxies=proxy_list)
+# Change the output path
+printer.set_path("custom_screenshot.png")
+
+#Change driver service path
+chromedriver_path = os.path.join(os.path.dirname(__file__), '/drivers/', 'chromedriver')
+printer.set_service(chromedriver_path)
+
+# Add driver arguments
+printer.add_argument("--hide-scrollbars")
+
+# Change the size window
+printer.set_window_size(1200,800)
+
+# Take the screenshot
+printer.take_screenshot()
+
+# kill the process driver
+printer.kill_driver()
 ```
 
-#### Customizing Proxy Rotation Strategy
 
-MetamorProxies allows you to customize how proxies are rotated or selected, making it suitable for specific use cases, such as avoiding IP bans.
+## Dependencies
 
-```python
-proxy_manager.set_rotation_strategy('round_robin')
-```
+MetamorProxies requires the following main dependencies:
+- `selenium` - For browser automation
+- `webdriver-manager` - For automatic Chrome driver management
+- `requests` - For HTTP requests and proxy testing
+- `kitano` - Additional utility library
 
 ## Documentation
 
@@ -108,7 +120,7 @@ For more detailed documentation on how to use MetamorProxies and all its feature
 
 ## Contributing
 
-We welcome contributions from the community! If you’d like to contribute to MetamorProxies, please follow these steps:
+We welcome contributions from the community! If you'd like to contribute to MetamorProxies, please follow these steps:
 
 1. Fork the repository.
 2. Create a new branch (`git checkout -b feature-name`).
@@ -117,3 +129,7 @@ We welcome contributions from the community! If you’d like to contribute to Me
 5. Open a pull request.
 
 Please make sure your code follows the existing style conventions, and include tests for new features or fixes.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

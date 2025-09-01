@@ -1,21 +1,47 @@
-from setuptools import setup
-from setuptools import find_packages, setup
+from setuptools import setup, find_packages
 
-with open("README.md",encoding="utf-8") as fh:
+with open("README.md", encoding="utf-8") as fh:
     readme = fh.read()
 
-setup(name='metamorproxies',
-    version='0.3.6',
+setup(
+    name='metamorproxies',
+    version='0.3.10.6',
     url='https://github.com/reinanbr/metamorproxies',
     license='MIT License',
     author='Reinan Br',
-    entry_points={
-        "console_scripts": ["tubemp3 = tubemp3.in_line:main"],
-    },
+    author_email='slimchatuba@gmail.com',
+    description=u'Library for working wih proxies',
     long_description=readme,
     long_description_content_type="text/markdown",
-    author_email='slimchatuba@gmail.com',
-    keywords='video mp3 m4a mp4 youtube music download',
-    description=u'Library for getting music and video in high quality from YouTube',
+    keywords='proxies',
     packages=find_packages(),
-    install_requires=['webdrive_manager','selenium','kitano','requests'],)
+    install_requires=[
+        'attrs',
+        'certifi',
+        'charset-normalizer',
+        'colorama',
+        'h11',
+        'idna',
+        'iniconfig',
+        'kitano',
+        'outcome',
+        'packaging',
+        'pluggy',
+        'Pygments',
+        'PySocks',
+        'pytest',
+        'python-dotenv',
+        'requests',
+        'selenium',
+        'setuptools',
+        'sniffio',
+        'sortedcontainers',
+        'trio',
+        'trio-websocket',
+        'typing_extensions',
+        'urllib3',
+        'webdriver-manager',
+        'websocket-client',
+        'wsproto'
+    ],
+)

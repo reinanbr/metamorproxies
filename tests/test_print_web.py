@@ -5,8 +5,11 @@ from metamorproxies.soldier import PrintWeb
 
 
 def test_print_web():
-    url = "https://www.google.com"
-    output_path = "screenshot.png"
-    PrintWeb(url, output_path).take_screenshot()
+    url = "https://x.com"
+    output_path = "screenshot_x.png"
+    pw = PrintWeb(url, output_path)
+    pw.add_argument("--hide-scrollbars")
+    pw.take_screenshot()
+    pw.kill_driver()
     assert os.path.exists(output_path)
-    os.remove(output_path)
+    #os.remove(output_path)
